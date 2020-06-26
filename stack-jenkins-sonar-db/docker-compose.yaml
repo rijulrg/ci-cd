@@ -1,14 +1,14 @@
 version: '2'
 services:
   jenkins:
-    image: rijulrg/jenkins-dk
+    image: rijulrg/jenkins-dk:latest # build custom jenkins image using jenkins-custom/Dockerfile
     ports:
       - "8080:8080"
       - "50000:50000"
     networks:
       - jenkins
     volumes:
-      - /home/rijulrg/work/docker_data/jenkins_home:/var/jenkins_home
+      - /var/jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
   postgres:
     image: postgres:9.6
@@ -18,7 +18,7 @@ services:
       POSTGRES_USER: sonar
       POSTGRES_PASSWORD: sonarpasswd
     volumes:
-      - /home/rijulrg/work/docker_data/postgres_data:/var/lib/postgresql/data
+      - /var/postgres_data:/var/lib/postgresql/data
   sonarqube:
     image: sonarqube:lts
     ports:
